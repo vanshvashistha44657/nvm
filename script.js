@@ -10,7 +10,7 @@ const CONFIG = {
     whatsappNumber: "917908102718",
 
     sheetCsvUrl:
-        "https://docs.google.com/spreadsheets/d/e/2PACX-1vSWc_OxH2vbtCnXjRwEmQC5J705LwXexrq6Ur1Bzud2QxSx9UoBcHvdDbnGEIoxP6hHpbyarz9iqZQZ/pub?gid=0&single=true&output=csv"
+        "https://docs.google.com/spreadsheets/d/1ps9_O26IvZjgZYicZkqCCQoHc2XmuuOhbUrX9RsHyT8/export?format=csv&gid=1653401564"
 };
 
 
@@ -23,7 +23,7 @@ const FALLBACK_SERVICES = [
         category: "Cleaning Services",
         name: "Professional Cleaning",
         desc: "Deep cleaning for homes, bathrooms, and kitchens.",
-        price: 449,
+        price: 299,
         icon: "clean",
         img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=600&auto=format&fit=crop"
     },
@@ -32,7 +32,7 @@ const FALLBACK_SERVICES = [
         category: "Electrical Services",
         name: "Electrical Repair & Wiring",
         desc: "Electrical installations, repairs, wiring, fans, and lights.",
-        price: 399,
+        price: 249,
         icon: "electric",
         img: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=600&auto=format&fit=crop"
     },
@@ -41,7 +41,7 @@ const FALLBACK_SERVICES = [
         category: "Plumbing Services",
         name: "Plumbing Repair",
         desc: "Plumbing repairs, pipe fitting, and bathroom fixtures.",
-        price: 399,
+        price: 249,
         icon: "plumb",
         img: "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=600&auto=format&fit=crop"
     },
@@ -50,7 +50,7 @@ const FALLBACK_SERVICES = [
         category: "Carpentry Services",
         name: "Custom Carpentry",
         desc: "Furniture assembly, wooden work, locks, and door repairs.",
-        price: 399,
+        price: 249,
         icon: "carpentry",
         img: "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?q=80&w=600&auto=format&fit=crop"
     },
@@ -68,7 +68,7 @@ const FALLBACK_SERVICES = [
         category: "Beauty Services",
         name: "Hair and Beauty Care",
         desc: "Professional doorstep hair styling, grooming, and salon treatments.",
-        price: 299,
+        price: 359,
         icon: "beauty",
         img: "https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=600&auto=format&fit=crop"
     }
@@ -238,25 +238,38 @@ function resolveIcon(iconValue, category) {
    ========================================================= */
 
 function resolveImageUrl(url) {
+    if (!url) return "";
 
-    if (!url) {
-        return "";
+    const value = String(url).trim();
+
+    // Google Drive:
+    // https://drive.google.com/file/d/FILE_ID/view?usp=drive_link
+
+    const fileMatch = value.match(
+        /drive\.google\.com\/file\/d\/([^/?#]+)/
+    );
+
+    if (fileMatch && fileMatch[1]) {
+        const fileId = fileMatch[1];
+
+        return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
     }
 
-    const trimmed = url.trim();
+    // Google Drive:
+    // https://drive.google.com/open?id=FILE_ID
 
-    const match =
-        trimmed.match(/drive\.google\.com\/file\/d\/([^/]+)/) ||
-        trimmed.match(/[?&]id=([^&]+)/);
+    const idMatch = value.match(
+        /[?&]id=([^&]+)/
+    );
 
-    if (match && match[1]) {
+    if (idMatch && idMatch[1]) {
+        const fileId = idMatch[1];
 
-        return `https://lh3.googleusercontent.com/d/${match[1]}=w800`;
+        return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
     }
 
-    return trimmed;
+    return value;
 }
-
 
 /* =========================================================
    ESCAPE HTML
