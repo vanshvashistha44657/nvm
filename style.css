@@ -2100,6 +2100,7 @@ input, select, textarea, button {
 
     .grid-section {
         padding-bottom: 38px;
+        margin-top: 12px;
     }
 
     .cards {
@@ -2304,6 +2305,7 @@ input, select, textarea, button {
 
     .hero-landing .hero-cta-card {
         padding: 20px 15px;
+        
     }
 
     .card .thumb {
@@ -3037,5 +3039,140 @@ body.menu-open {
 @media (min-width: 921px) {
     body.menu-open {
         overflow: auto;
+    }
+}
+/* =========================================================
+   KAAMOKAZI - MOBILE BG FIX
+   ========================================================= */
+
+.hero-landing {
+    position: relative;
+    overflow: hidden;
+    background: #0B1B3B;
+}
+
+.hero-landing::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image: url("./bg.jpg");
+    background-repeat: no-repeat;
+
+    /* Desktop */
+    background-size: cover;
+    background-position: center center;
+
+    opacity: 0.45;
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-landing::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        180deg,
+        rgba(11, 27, 59, 0.25) 0%,
+        rgba(11, 27, 59, 0.55) 55%,
+        rgba(11, 27, 59, 0.95) 100%
+    );
+
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-landing > .wrap {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =========================================================
+   PHONE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .hero-landing {
+        min-height: auto;
+        padding-top: 45px;
+        padding-bottom: 50px;
+    }
+
+    .hero-landing::before {
+
+        /*
+         * IMPORTANT:
+         * Don't use cover on mobile.
+         * It crops the image.
+         */
+
+        background-size: 100% auto;
+
+        background-position:
+            center top;
+
+        background-repeat:
+            no-repeat;
+
+        opacity:
+            0.55;
+    }
+
+    .hero-landing::after {
+
+        background:
+            linear-gradient(
+                180deg,
+                rgba(11, 27, 59, 0.05) 0%,
+                rgba(11, 27, 59, 0.30) 30%,
+                rgba(11, 27, 59, 0.72) 65%,
+                #0B1B3B 100%
+            );
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONE
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .hero-landing::before {
+
+        background-size:
+            100% auto;
+
+        background-position:
+            center top;
+
+        opacity:
+            0.52;
+    }
+}
+
+
+/* =========================================================
+   LANDSCAPE PHONE
+   ========================================================= */
+
+@media (
+    max-width: 900px
+) and (
+    orientation: landscape
+) {
+
+    .hero-landing::before {
+
+        background-size:
+            cover;
+
+        background-position:
+            center center;
     }
 }
