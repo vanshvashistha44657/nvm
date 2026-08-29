@@ -10,7 +10,7 @@ const CONFIG = {
     whatsappNumber: "917908102718",
 
     sheetCsvUrl:
-"https://docs.google.com/spreadsheets/d/1ps9_O26IvZjgZYicZkqCCQoHc2XmuuOhbUrX9RsHyT8/export?format=csv&gid=1653401564"
+        "https://docs.google.com/spreadsheets/d/1ps9_O26IvZjgZYicZkqCCQoHc2XmuuOhbUrX9RsHyT8/export?format=csv&gid=1653401564"
 };
 
 
